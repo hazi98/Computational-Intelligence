@@ -1,0 +1,121 @@
+---
+title: Time Series Forecasting using Polynomial Artificial Neural Networks
+affiliation:
+  institution-columnar: true  ## one column per institution (multiple autors eventually)
+
+  institution:
+    - name: Universidad La Salle
+      department: Faculty of Engineering
+      location: Mexico City, Mexico
+      mark: 1
+      author:
+        - name: Yoltic Jassiel García Guzmán
+          email: yjgg@lasallistas.org.mx
+    
+keywords: ["PANN", "Time series forecasting", ""]
+abstract: |
+  The abstract goes here.
+  On multiple lines eventually.
+
+bibliography: mybibfile.bib
+# csl: ../apa.csl
+csl: ../ieee.csl
+output: 
+  rticles::ieee_article:
+    latex_engine: xelatex
+	number_sections: true
+header-includes:
+  - \usepackage{fontspec}
+  - \usepackage{amsmath}
+  - \setmainfont{Indivisa Text Serif}
+#mainfont: Indivisa Text Serif
+#citation_sorting: none   ## used as sorting option of the biblatex package (if selected)
+---
+
+Introduction
+=============
+
+
+Results
+=============
+| # Test | $n_\text{train}$ | $n_{\text{test}}$ | $n_\text{trans}$ | $\text{prev_val}$ | $\text{maxpow}$ | $\text{ratio}$ | $e_\text{train}$ | $e_\text{test}$ | Observations |
+| :----: | :----------------: | :-----------------: | :---------------: | :--------------: | :--------------------: | :----: | :----: | :----: | ------ |
+| 1 | 150 | 150 | 50 | [0, 1] | 1 | 1 | 0.0035 | 0.0075 | Initial conditions |
+| 2 | 150 | 150 | 50 | [0, 1] | 1 | 8 | 0.0041 | 0.0098 | $e_\text{train} \uparrow, e_\text{test} \uparrow$ |
+| 3 | 150 | 150 | 50 | [0, 1] | 2 | 1 | 0.0035 | 0.0074 | $e_\text{train} \downarrow, e_\text{test} \downarrow$ |
+| 4 | 150 | 150 | 50 | [0, 1] | 5 | 1 | 0.0035 | 0.0074 | Increasing $\text{maxpow}$ does not benefit the result |
+| 5 | 150 | 150 | 50 | [0, 2] | 5 | 1 | 0.0031 | 0.0099 | $e_\text{train}\downarrow, e_\text{test} \uparrow$ |
+| 6 | 150 | 150 | 50 | [0, 2] | 5 | 10 | 0.0032 | 0.0079 | $e_\text{train}\uparrow, e_\text{test} \downarrow$ |
+| 7 | 120 | 150 | 50 | [0, 2] | 5 | 10 | 0.0038 | 0.0029 | $e_\text{train}\uparrow, e_\text{test} \downarrow$ |
+| 8 | 120 | 120 | 50 | [0, 2] | 5 | 10 | 0.0038 | 0.0019 | Decreasing $n_{\text{test}}$ will decrease  $e_\text{test}$since there are fewer points |
+$$
+\text{Table 1 - Results of the experiment with PANN algorithm}
+$$
+
+
+![](..\Figures\fig1.png)
+
+$$
+\text{Fig. 1 - Test # 1}
+$$
+
+
+![](..\Figures\fig2.png)
+
+$$
+\text{Fig. 2 - Test # 2}
+$$
+
+
+![](..\Figures\fig3.png)
+
+$$
+\text{Fig. 3 - Test # 3}
+$$
+
+
+![](..\Figures\fig4.png)
+
+$$
+\text{Fig. 4 - Test # 4}
+$$
+
+
+![](..\Figures\fig5.png)
+
+$$
+\text{Fig. 5 - Test # 5}
+$$
+
+
+![](..\Figures\fig6.png)
+
+$$
+\text{Fig. 6 - Test # 6}
+$$
+
+
+![](..\Figures\fig7.png)
+
+$$
+\text{Fig. 7 - Test # 7}
+$$
+
+
+![](..\Figures\fig8.png)
+
+$$
+\text{Fig. 8 - Test # 8}
+$$
+
+
+Conclusion
+============
+The conclusion goes here.
+
+
+
+
+\newpage
+References {#references .numbered}
+==========
