@@ -12,22 +12,26 @@ affiliation:
         - name: Yoltic Jassiel García Guzmán
           email: yjgg@lasallistas.org.mx
     
-keywords: ["PANN", "Time series forecasting", ""]
+keywords: ["PANN", "Time series forecasting", "Neural Networks"]
 abstract: |
-  The abstract goes here.
-  On multiple lines eventually.
+  The Polynomial Artificial Neural network is a different approach to 
+  a design of a universal structure identificator, which uses a statistical method
+  to adapt to a structure by means of maximum likehood techniques, giving an
+  efficient design for data forecasting in high performance computing where 
+  the model is complex in nature.
 
 bibliography: mybibfile.bib
-# csl: ../apa.csl
-csl: ../ieee.csl
+csl: ../apa.csl
+#csl: ../ieee.csl
 output: 
   rticles::ieee_article:
     latex_engine: xelatex
-	number_sections: true
+    number_sections: true
 header-includes:
   - \usepackage{fontspec}
   - \usepackage{amsmath}
   - \setmainfont{Indivisa Text Serif}
+  
 #mainfont: Indivisa Text Serif
 #citation_sorting: none   ## used as sorting option of the biblatex package (if selected)
 ---
@@ -35,19 +39,84 @@ header-includes:
 Introduction
 =============
 
+Artificial Neural Networks, in general, are function approximations. They identify patterns in a dataset according to their relationship. An ANN is trained to correctly classify the test information, and then it is fed with new information to make an attempt of forecasting the correct answer.
+Polynomial neural networks, unlike ANNs, can handle the interaction between multiple layers of a neuron. It is considered a polynomial paradigm because of the multiple variables and parameters the PANN uses to transform the input into a series of weighted combinations using time-delayed dynamic periodic ativation functions [@zjavkaDifferentialPolynomialNeural2011].
+
+Polynomial approximations are used in the fields of data mining, knowledge discovery, prediction, complex systems modeling, optimization and pattern recognition. 
+They were first introduced with the introduction of Group method of data handling (GMDH), a mathematical model of multi-parametric data sets that feature fully automatic structural and parametric optimization of models [@GroupMethodData2020], in the hope to capture the complexity of a process and decompose it into simple relationships described by a processing function of a neuron. Since then, other types of approximations appeared, such as NARMAX, High Order Neural Network, Non-linear interconnection, and Polynomial Neural Networks.
+
+In section II we describe the PANN functionality, in section III we discuss the methodology used to train and test a PANN, showing the corresponding results in section V, to later analyze the output and discuss the results in section VI.
+
+![](..\Figures\gmdh.png)
+$$
+\text{Fig. 1.1 - GMDH polynomial neural network}
+$$
+
+Polynomial Artificial Neural Networks
+=============
+The PANN model can be described as the following equation:
+$$
+\hat{y_k}= \left[\phi\left(x_{1,k}, x_{2,k}, ...x_{n_i, k}, x_{1, k-1}, x_{2, k-1}, ..., x_{n_i, k-n_1},
+\\ ... y_{k-1}, y_{k-2}, ..., y_{k-n_2}\right)\right]_{\phi _\text{min}}^{\phi_\text{max}}
+$$
+Where:
+  - $\hat{y_k} \in \mathbf{R}$ is the approximation of a function, or the network output, 
+  - $\phi(x,y) \in \mathbf{R}$ is a non linear function,
+  - $x_i \in X$ are the inputs,
+  - $i = 1, \ldots, n_i ; n_i =$ number of inputs,
+  - $y_{k-j} \in Y$ are the previous values of the input,
+  - $j=1,\ldots,n_2,n_1$ are the number of delays in the input,
+  - $n_2$ is the number of delays in the output,
+  - $X,Y$ are compact spaces of $\mathbf{R}$
+
+The non-linear $\phi(z)$ function is described by:
+$$
+\left[\phi(z)\right]_{\phi_\text{min}}^{\phi_\text{max}} =
+\begin{cases}
+  \phi_\text{max} & \phi(z) \ge \phi_\text{max} \\
+  \phi(z) & \phi_\text{min} < \phi(z) < \phi_\text{max} \\
+  \phi_\text{min} & \phi(z) \le \phi_\text{min}
+\end{cases}
+$$
+Where $\phi_\text{max}$ and $\phi_\text{min}$ are maximum and minimum limits respectively.
+
+In summary:
+$$
+z = \left\{x_{1,k}, x_{2,k}, \ldots, x_{n_1,k}, \ldots, y_{k-1}, y_{k-2}, \ldots, y_{k-n_2} \right\} 
+\\ = \left\{z_1, z_2, z_3, \ldots, z_{n_v}\right\}
+$$
+Where $n_v$ is the number of elements on z, that is, the total amount of inputs, previous values from input and output:
+$$
+n_v = n_i+n_1 n_i + n_2
+$$
+Therefore, the function $\phi(z) \in \Phi_p$ can be written as:
+$$
+\Phi_p(z_1, z_2, \ldots,z_{n_v}) = \left\{\phi(z): \phi(z) = a_0(z_1, z_2, \ldots,z_{n_v}) + a_1(z_1, z_2, \ldots,z_{n_v}) 
+\\ + a_2(z_1, z_2, \ldots,z_{n_v}) + \ldots + a_p(z_1, z_2, \ldots,z_{n_v})\right\}
+$$
+
+![](..\Figures\pann.png)
+$$
+\text{Fig. 2.1 - PANN scheme}
+$$
+
+Methodology
+=============
 
 Results
 =============
-| # Test | $n_\text{train}$ | $n_{\text{test}}$ | $n_\text{trans}$ | $\text{prev_val}$ | $\text{maxpow}$ | $\text{ratio}$ | $e_\text{train}$ | $e_\text{test}$ | Observations |
-| :----: | :----------------: | :-----------------: | :---------------: | :--------------: | :--------------------: | :----: | :----: | :----: | ------ |
-| 1 | 150 | 150 | 50 | [0, 1] | 1 | 1 | 0.0035 | 0.0075 | Initial conditions |
-| 2 | 150 | 150 | 50 | [0, 1] | 1 | 8 | 0.0041 | 0.0098 | $e_\text{train} \uparrow, e_\text{test} \uparrow$ |
-| 3 | 150 | 150 | 50 | [0, 1] | 2 | 1 | 0.0035 | 0.0074 | $e_\text{train} \downarrow, e_\text{test} \downarrow$ |
-| 4 | 150 | 150 | 50 | [0, 1] | 5 | 1 | 0.0035 | 0.0074 | Increasing $\text{maxpow}$ does not benefit the result |
-| 5 | 150 | 150 | 50 | [0, 2] | 5 | 1 | 0.0031 | 0.0099 | $e_\text{train}\downarrow, e_\text{test} \uparrow$ |
-| 6 | 150 | 150 | 50 | [0, 2] | 5 | 10 | 0.0032 | 0.0079 | $e_\text{train}\uparrow, e_\text{test} \downarrow$ |
-| 7 | 120 | 150 | 50 | [0, 2] | 5 | 10 | 0.0038 | 0.0029 | $e_\text{train}\uparrow, e_\text{test} \downarrow$ |
-| 8 | 120 | 120 | 50 | [0, 2] | 5 | 10 | 0.0038 | 0.0019 | Decreasing $n_{\text{test}}$ will decrease  $e_\text{test}$since there are fewer points |
+
+| # Test | $n_\text{train}$ | $n_{\text{test}}$ | $n_\text{trans}$ | $\text{prev_val}$ | $\text{maxpow}$ | $\text{ratio}$ | $e_\text{train}$ | $e_\text{test}$ | Observations|
+| :----: | :--------------: | :---------------: | :--------------: | :---------------: | :-------------: | :------------: | :--------------: | :-------------: | ------------------------------------------------------------ |
+|   1    |       150        |        150        |        50        |      [0, 1]       |        1        |       1        |      0.0035      |     0.0075      | Initial conditions                                           |
+|   2    |       150        |        150        |        50        |      [0, 1]       |        1        |       8        |      0.0041      |     0.0098      | $e_\text{train} \uparrow, e_\text{test} \uparrow$            |
+|   3    |       150        |        150        |        50        |      [0, 1]       |        2        |       1        |      0.0035      |     0.0074      | $e_\text{train} \downarrow, e_\text{test} \downarrow$        |
+|   4    |       150        |        150        |        50        |      [0, 1]       |        5        |       1        |      0.0035      |     0.0074      | Increasing $\text{maxpow}$ does not benefit the result       |
+|   5    |       150        |        150        |        50        |      [0, 2]       |        5        |       1        |      0.0031      |     0.0099      | $e_\text{train}\downarrow, e_\text{test} \uparrow$           |
+|   6    |       150        |        150        |        50        |      [0, 2]       |        5        |       10       |      0.0032      |     0.0079      | $e_\text{train}\uparrow, e_\text{test} \downarrow$           |
+|   7    |       120        |        150        |        50        |      [0, 2]       |        5        |       10       |      0.0038      |     0.0029      | $e_\text{train}\uparrow, e_\text{test} \downarrow$           |
+|   8    |       120        |        120        |        50        |      [0, 2]       |        5        |       10       |      0.0038      |     0.0019      | Decreasing $n_{\text{test}}$ will decrease  $e_\text{test}$since there are fewer points |
+
 $$
 \text{Table 1 - Results of the experiment with PANN algorithm}
 $$
