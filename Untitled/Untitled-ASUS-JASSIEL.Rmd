@@ -1,0 +1,60 @@
+---
+title: Time Series Forecasting using Polynomial Artificial Neural Networks
+affiliation:
+  institution-columnar: true  ## one column per institution (multiple autors eventually)
+
+  institution:
+    - name: Universidad La Salle
+      department: Faculty of Engineering
+      location: Mexico City, Mexico
+      mark: 1
+      author:
+        - name: Yoltic Jassiel García Guzmán
+          email: yjgg@lasallistas.org.mx
+    
+keywords: ["PANN", "Time series forecasting", ""]
+abstract: |
+  The abstract goes here.
+  On multiple lines eventually.
+
+bibliography: mybibfile.bib
+# csl: ../apa.csl
+csl: ../ieee.csl
+longtable: false
+output: 
+  rticles::ieee_article:
+    latex_engine: xelatex
+header-includes:
+  - \usepackage{fontspec}
+  - \usepackage{amsmath}
+  - \setmainfont{Indivisa Text Serif}
+#mainfont: Indivisa Text Serif
+#citation_sorting: none   ## used as sorting option of the biblatex package (if selected)
+---
+
+I. Introduction
+=============
+
+
+?. Results
+=============
+| # Test | $n_\text{train}$ | $n_{\text{test}}$ | $n_\text{trans}$ | $\text{prev_val}$ | $\text{maxpow}$ | $\text{ratio}$ | $e_\text{train}$ | $e_\text{test}$ | Observations |
+| :----: | :----------------: | :-----------------: | :---------------: | :--------------: | :--------------------: | :--------------------: | :--------------------: | :--------------------: | ---------------------- |
+| 1 | 12 | 6 | 5 | [0, 1] | 2 | 1 | 0.0477 | 0.0462 |              |
+| 2 |                  |                   |                   |                   |                 |                |                      |                      |              |
+
+
+
+
+
+
+?. Conclusion
+============
+The conclusion goes here.
+
+
+
+
+\newpage
+References {#references .numbered}
+==========

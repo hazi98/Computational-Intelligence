@@ -490,7 +490,7 @@ correct answer. Polynomial neural networks, unlike ANNs, can handle the
 interaction between multiple layers of a neuron. It is considered a
 polynomial paradigm because of the multiple variables and parameters the
 PANN uses to transform the input into a series of weighted combinations
-using time-delayed dynamic periodic activation functions (Zjavka, 2011).
+using time-delayed dynamic periodic ativation functions (Zjavka, 2011).
 
 Polynomial approximations are used in the fields of data mining,
 knowledge discovery, prediction, complex systems modeling, optimization
@@ -506,8 +506,8 @@ interconnection, and Polynomial Neural Networks.
 
 In section II we describe the PANN functionality, in section III we
 discuss the methodology used to train and test a PANN, showing the
-corresponding results in section IV, to later analyze the output and
-discuss the results in section V.
+corresponding results in section V, to later analyze the output and
+discuss the results in section VI.
 
 \includegraphics{../Figures/gmdh.png} \[
 \text{Fig. 1.1 - GMDH polynomial neural network}
@@ -517,44 +517,18 @@ discuss the results in section V.
 \section{Polynomial Artificial Neural
 Networks}\label{polynomial-artificial-neural-networks}}
 
-The PANN model can be described according to (Gomez-Ramirez et al.,
-1999) as the following equation:
+The PANN model can be described as the following equation: \[
+\hat{y_k}= \left[\phi\left(x_{1,k}, x_{2,k}, ...x_{n_i, k}, x_{1, k-1}, x_{2, k-1}, ..., x_{n_i, k-n_1},
+\\ ... y_{k-1}, y_{k-2}, ..., y_{k-n_2}\right)\right]_{\phi _\text{min}}^{\phi_\text{max}}
+\] Where: - \(\hat{y_k} \in \mathbf{R}\) is the approximation of a
+function, or the network output, - \(\phi(x,y) \in \mathbf{R}\) is a non
+linear function, - \(x_i \in X\) are the inputs, -
+\(i = 1, \ldots, n_i ; n_i =\) number of inputs, - \(y_{k-j} \in Y\) are
+the previous values of the input, - \(j=1,\ldots,n_2,n_1\) are the
+number of delays in the input, - \(n_2\) is the number of delays in the
+output, - \(X,Y\) are compact spaces of \(\mathbf{R}\)
 
-\[
-\begin{aligned}
-\hat{y_k}= [\phi(x_{1,k}, x_{2,k}, ...x_{n_i, k}, x_{1, k-1}, x_{2, k-1}, ..., x_{n_i, k-n_1}, \\
-... y_{k-1}, y_{k-2}, ..., y_{k-n_2})]_{\phi _\text{min}}^{\phi_\text{max}}
-\end{aligned}
-\]
-
-\begin{itemize}
-\tightlist
-\item
-  Where:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \(\hat{y_k} \in \mathbf{R}\) is the approximation of a function, or
-    the network output,
-  \item
-    \(\phi(x,y) \in \mathbf{R}\) is a non linear function,
-  \item
-    \(x_i \in X\) are the inputs,
-  \item
-    \(i = 1, \ldots, n_i ; n_i =\) number of inputs,
-  \item
-    \(y_{k-j} \in Y\) are the previous values of the input,
-  \item
-    \(j=1,\ldots,n_2,n_1\) are the number of delays in the input,
-  \item
-    \(n_2\) is the number of delays in the output,
-  \item
-    \(X,Y\) are compact spaces of \(\mathbf{R}\)
-  \end{itemize}
-\end{itemize}
-
-The applied non-linear \(\phi(z)\) function is described by: \[
+The non-linear \(\phi(z)\) function is described by: \[
 \left[\phi(z)\right]_{\phi_\text{min}}^{\phi_\text{max}} =
 \begin{cases}
   \phi_\text{max} & \phi(z) \ge \phi_\text{max} \\
@@ -565,22 +539,15 @@ The applied non-linear \(\phi(z)\) function is described by: \[
 minimum limits respectively.
 
 In summary: \[
-\begin{aligned}
-z = \{x_{1,k}, x_{2,k}, \ldots, x_{n_1,k}, \ldots, y_{k-1}, y_{k-2}, \ldots, y_{k-n_2}\} \\
-= \{z_1, z_2, z_3, \ldots, z_{n_v}\}
-\end{aligned}
+z = \left\{x_{1,k}, x_{2,k}, \ldots, x_{n_1,k}, \ldots, y_{k-1}, y_{k-2}, \ldots, y_{k-n_2} \right\} 
+\\ = \left\{z_1, z_2, z_3, \ldots, z_{n_v}\right\}
 \] Where \(n_v\) is the number of elements on z, that is, the total
 amount of inputs, previous values from input and output: \[
 n_v = n_i+n_1 n_i + n_2
 \] Therefore, the function \(\phi(z) \in \Phi_p\) can be written as: \[
-\begin{aligned}
-\Phi_p(z_1, z_2, \ldots,z_{n_v}) = \{\phi(z): \phi(z) = a_0(z_1, z_2, \ldots,z_{n_v}) \\
-+ a_1(z_1, z_2, \ldots,z_{n_v}) + a_2(z_1, z_2, \ldots,z_{n_v}) \\
-+ \ldots + a_p(z_1, z_2, \ldots,z_{n_v})\}
-\end{aligned}
-\] The multiple number of thresholds have a purpose on filtering out the
-least useful elements, to finally predict the correct output \(\Phi\)
-(Ivakhnenko, 1971).
+\Phi_p(z_1, z_2, \ldots,z_{n_v}) = \left\{\phi(z): \phi(z) = a_0(z_1, z_2, \ldots,z_{n_v}) + a_1(z_1, z_2, \ldots,z_{n_v}) 
+\\ + a_2(z_1, z_2, \ldots,z_{n_v}) + \ldots + a_p(z_1, z_2, \ldots,z_{n_v})\right\}
+\]
 
 \includegraphics{../Figures/pann.png} \[
 \text{Fig. 2.1 - PANN scheme}
@@ -589,26 +556,13 @@ least useful elements, to finally predict the correct output \(\Phi\)
 \hypertarget{methodology}{%
 \section{Methodology}\label{methodology}}
 
-We used the GNU Octave programming language to run the simulations. This
-programming language is identical to MATLAB, which is mostly used in
-mathematics, engineering, and machine learning and neural networks. The
-program proportioned by (G\a'omez-Ramírez, 2005) was used and modified
-with test data proportioned by the UCI Machine Learning Repository
-(\emph{UCI Machine Learning Repository}, n.d.), about the Ozone Level
-Detection Data from the year 2004, with samples taken every day,
-measuring the average ozone level. The following parameters were changed
-on the tests, and the results are described in the following section.
-
-\newpage
-\onecolumn
-
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
-\begin{longtable}[]{@{}cccccccccl@{}}
+\begin{longtable*}[]{@{}cccccccccl@{}}
 \toprule
 \begin{minipage}[b]{0.02\columnwidth}\centering
-Test\strut
+\# Test\strut
 \end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\centering
 \(n_\text{train}\)\strut
 \end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
@@ -616,7 +570,7 @@ Test\strut
 \end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\centering
 \(n_\text{trans}\)\strut
 \end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
-\(\text{prevval}\)\strut
+\(\text{prev_val}\)\strut
 \end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\centering
 \(\text{maxpow}\)\strut
 \end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\centering
@@ -800,93 +754,66 @@ Decreasing \(n_{\text{test}}\) will decrease \(e_\text{test}\)since
 there are fewer points\strut
 \end{minipage}\tabularnewline
 \bottomrule
-\end{longtable}
+\end{longtable*}
 
 \[
 \text{Table 1 - Results of the experiment with PANN algorithm}
-\] \twocolumn
+\]
 
 \includegraphics{../Figures/fig1.png}
 
 \[
-\text{Fig. 4.1 - Test No. 1}
+\text{Fig. 1 - Test # 1}
 \]
 
 \includegraphics{../Figures/fig2.png}
 
 \[
-\text{Fig. 4.2 - Test No. 2}
+\text{Fig. 2 - Test # 2}
 \]
 
 \includegraphics{../Figures/fig3.png}
 
 \[
-\text{Fig. 4.3 - Test No. 3}
+\text{Fig. 3 - Test # 3}
 \]
 
 \includegraphics{../Figures/fig4.png}
 
 \[
-\text{Fig. 4.4 - Test No. 4}
+\text{Fig. 4 - Test # 4}
 \]
 
 \includegraphics{../Figures/fig5.png}
 
 \[
-\text{Fig. 4.5 - Test No. 5}
+\text{Fig. 5 - Test # 5}
 \]
 
 \includegraphics{../Figures/fig6.png}
 
 \[
-\text{Fig. 4.6 - Test No. 6}
+\text{Fig. 6 - Test # 6}
 \]
 
 \includegraphics{../Figures/fig7.png}
 
 \[
-\text{Fig. 4.7 - Test No. 7}
+\text{Fig. 7 - Test # 7}
 \]
 
 \includegraphics{../Figures/fig8.png}
 
 \[
-\text{Fig. 4.8 - Test No. 8}
+\text{Fig. 8 - Test # 8}
 \]
-
-\hypertarget{discussion}{%
-\section{Discussion}\label{discussion}}
-
-The first attempt to set the initial conditions was already
-approximating the original data with no significant error. However;
-multiple tests were run in hope to get a better result. The following
-times the procedure was applied with several configurations and
-different parameter values. The result is that PANNs do not require an
-extensive fine tuning to get the desired results from them. There were
-some cases in the experiment that made clear which parameters are
-directly involved with a certain type of error. For example, in test 8
-was observed that decreasing the number of test points will decrease the
-test error, this is a consequence of lowering the thresholds by
-decreasing the amount of data used in the measure of error. The results
-of the training and testing of the PANN show us that, despite the
-several modifications done to reduce the error in both scenarios, the
-graphs present a slight displacement in time, speculatively attributed
-to the implementation of the algorithm. Nevertheless; it is clear from
-the plots and the error from both test and train, that despite this
-fact, the PANN is capable to make a forecast of the test values with a
-polynomial data fitting, and giving a correct approximation to the
-original data.
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
-PANNs can show us a great behavior with several problems of data
-forecasting, data fitting, pattern recognition, and general function
-approximations. With these networks, it is possible to create nonlinear
-interconnections between multiple inner layers, and the algorithm mostly
-handles the correct values for the optimal configuration. The result is
-a much more accurate representation of the problem, with fewer
-adjustments to do before settling on usable conditions.
+The conclusion goes here.
+
+\newpage
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -894,28 +821,8 @@ adjustments to do before settling on usable conditions.
 
 \hypertarget{refs}{}
 \begin{cslreferences}
-\leavevmode\hypertarget{ref-gomez-ramirezAdaptiveArchitecturePolynomial1999}{}%
-Gomez-Ramirez, E., Poznyak, A., Gonzalez-Yunes, A., \& Avila-Alvarez, M.
-(1999). Adaptive architecture of polynomial artificial neural network to
-forecast nonlinear time series. \emph{Proceedings of the 1999 Congress
-on Evolutionary Computation-CEC99 (Cat. No. 99TH8406)}, 317--324.
-\url{https://doi.org/10.1109/CEC.1999.781942}
-
-\leavevmode\hypertarget{ref-gomez-ramirezRedNeuronalArtificial2005}{}%
-G\a'omez-Ramírez, E. (2005). \emph{Red Neuronal Artificial Polinomial}.
-
 \leavevmode\hypertarget{ref-GroupMethodData2020}{}%
 Group method of data handling. (2020). \emph{Wikipedia}.
-
-\leavevmode\hypertarget{ref-ivakhnenkoPolynomialTheoryComplex1971}{}%
-Ivakhnenko, A. G. (1971). Polynomial Theory of Complex Systems.
-\emph{IEEE Transactions on Systems, Man, and Cybernetics},
-\emph{SMC-1}(4), 364--378.
-\url{https://doi.org/10.1109/TSMC.1971.4308320}
-
-\leavevmode\hypertarget{ref-UCIMachineLearning}{}%
-\emph{UCI Machine Learning Repository: Ozone Level Detection Data Set}.
-(n.d.). https://archive.ics.uci.edu/ml/datasets/Ozone+Level+Detection.
 
 \leavevmode\hypertarget{ref-zjavkaDifferentialPolynomialNeural2011}{}%
 Zjavka, L. (2011). Differential Polynomial Neural Network. \emph{Journal

@@ -313,38 +313,21 @@
 
 
 \usepackage{longtable,booktabs}
-\usepackage{graphicx}
-% We will generate all images so they have a width \maxwidth. This means
-% that they will get their normal width if they fit onto the page, but
-% are scaled down if they would overflow the margins.
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
-\else\Gin@nat@width\fi}
-\makeatother
-\let\Oldincludegraphics\includegraphics
-\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
 
 \usepackage[unicode=true]{hyperref}
 
 \hypersetup{
             pdftitle={Time Series Forecasting using Polynomial Artificial Neural Networks},
-            pdfkeywords={PANN, Time series forecasting, Neural
-Networks},
+            pdfkeywords={PANN, Time series forecasting, },
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
 
 % Pandoc toggle for numbering sections (defaults to be off)
-\setcounter{secnumdepth}{5}
+\setcounter{secnumdepth}{0}
 
 % Pandoc syntax highlighting
 
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newenvironment{cslreferences}%
-  {\setlength{\parindent}{0pt}%
-  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces}%
-  {\par}
 
 % Pandoc header
 \usepackage{fontspec}
@@ -447,16 +430,12 @@ Mexico City, Mexico
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-The Polynomial Artificial Neural network is a different approach to a
-design of a universal structure identificator, which uses a statistical
-method to adapt to a structure by means of maximum likehood techniques,
-giving an efficient design for data forecasting in high performance
-computing where the model is complex in nature.
+The abstract goes here. On multiple lines eventually.
 \end{abstract}
 
 % keywords
 \begin{IEEEkeywords}
-PANN; Time series forecasting; Neural Networks
+PANN; Time series forecasting; 
 \end{IEEEkeywords}
 
 % use for special paper notices
@@ -479,449 +458,91 @@ PANN; Time series forecasting; Neural Networks
 \IEEEpeerreviewmaketitle
 
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
-
-Artificial Neural Networks, in general, are function approximations.
-They identify patterns in a dataset according to their relationship. An
-ANN is trained to correctly classify the test information, and then it
-is fed with new information to make an attempt of forecasting the
-correct answer. Polynomial neural networks, unlike ANNs, can handle the
-interaction between multiple layers of a neuron. It is considered a
-polynomial paradigm because of the multiple variables and parameters the
-PANN uses to transform the input into a series of weighted combinations
-using time-delayed dynamic periodic activation functions (Zjavka, 2011).
-
-Polynomial approximations are used in the fields of data mining,
-knowledge discovery, prediction, complex systems modeling, optimization
-and pattern recognition. They were first introduced with the
-introduction of Group method of data handling (GMDH), a mathematical
-model of multi-parametric data sets that feature fully automatic
-structural and parametric optimization of models (``Group method of data
-handling,'' 2020), in the hope to capture the complexity of a process
-and decompose it into simple relationships described by a processing
-function of a neuron. Since then, other types of approximations
-appeared, such as NARMAX, High Order Neural Network, Non-linear
-interconnection, and Polynomial Neural Networks.
-
-In section II we describe the PANN functionality, in section III we
-discuss the methodology used to train and test a PANN, showing the
-corresponding results in section IV, to later analyze the output and
-discuss the results in section V.
-
-\includegraphics{../Figures/gmdh.png} \[
-\text{Fig. 1.1 - GMDH polynomial neural network}
-\]
-
-\hypertarget{polynomial-artificial-neural-networks}{%
-\section{Polynomial Artificial Neural
-Networks}\label{polynomial-artificial-neural-networks}}
-
-The PANN model can be described according to (Gomez-Ramirez et al.,
-1999) as the following equation:
-
-\[
-\begin{aligned}
-\hat{y_k}= [\phi(x_{1,k}, x_{2,k}, ...x_{n_i, k}, x_{1, k-1}, x_{2, k-1}, ..., x_{n_i, k-n_1}, \\
-... y_{k-1}, y_{k-2}, ..., y_{k-n_2})]_{\phi _\text{min}}^{\phi_\text{max}}
-\end{aligned}
-\]
-
-\begin{itemize}
-\tightlist
-\item
-  Where:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \(\hat{y_k} \in \mathbf{R}\) is the approximation of a function, or
-    the network output,
-  \item
-    \(\phi(x,y) \in \mathbf{R}\) is a non linear function,
-  \item
-    \(x_i \in X\) are the inputs,
-  \item
-    \(i = 1, \ldots, n_i ; n_i =\) number of inputs,
-  \item
-    \(y_{k-j} \in Y\) are the previous values of the input,
-  \item
-    \(j=1,\ldots,n_2,n_1\) are the number of delays in the input,
-  \item
-    \(n_2\) is the number of delays in the output,
-  \item
-    \(X,Y\) are compact spaces of \(\mathbf{R}\)
-  \end{itemize}
-\end{itemize}
-
-The applied non-linear \(\phi(z)\) function is described by: \[
-\left[\phi(z)\right]_{\phi_\text{min}}^{\phi_\text{max}} =
-\begin{cases}
-  \phi_\text{max} & \phi(z) \ge \phi_\text{max} \\
-  \phi(z) & \phi_\text{min} < \phi(z) < \phi_\text{max} \\
-  \phi_\text{min} & \phi(z) \le \phi_\text{min}
-\end{cases}
-\] Where \(\phi_\text{max}\) and \(\phi_\text{min}\) are maximum and
-minimum limits respectively.
-
-In summary: \[
-\begin{aligned}
-z = \{x_{1,k}, x_{2,k}, \ldots, x_{n_1,k}, \ldots, y_{k-1}, y_{k-2}, \ldots, y_{k-n_2}\} \\
-= \{z_1, z_2, z_3, \ldots, z_{n_v}\}
-\end{aligned}
-\] Where \(n_v\) is the number of elements on z, that is, the total
-amount of inputs, previous values from input and output: \[
-n_v = n_i+n_1 n_i + n_2
-\] Therefore, the function \(\phi(z) \in \Phi_p\) can be written as: \[
-\begin{aligned}
-\Phi_p(z_1, z_2, \ldots,z_{n_v}) = \{\phi(z): \phi(z) = a_0(z_1, z_2, \ldots,z_{n_v}) \\
-+ a_1(z_1, z_2, \ldots,z_{n_v}) + a_2(z_1, z_2, \ldots,z_{n_v}) \\
-+ \ldots + a_p(z_1, z_2, \ldots,z_{n_v})\}
-\end{aligned}
-\] The multiple number of thresholds have a purpose on filtering out the
-least useful elements, to finally predict the correct output \(\Phi\)
-(Ivakhnenko, 1971).
-
-\includegraphics{../Figures/pann.png} \[
-\text{Fig. 2.1 - PANN scheme}
-\]
-
-\hypertarget{methodology}{%
-\section{Methodology}\label{methodology}}
-
-We used the GNU Octave programming language to run the simulations. This
-programming language is identical to MATLAB, which is mostly used in
-mathematics, engineering, and machine learning and neural networks. The
-program proportioned by (G\a'omez-Ramírez, 2005) was used and modified
-with test data proportioned by the UCI Machine Learning Repository
-(\emph{UCI Machine Learning Repository}, n.d.), about the Ozone Level
-Detection Data from the year 2004, with samples taken every day,
-measuring the average ozone level. The following parameters were changed
-on the tests, and the results are described in the following section.
-
-\newpage
-\onecolumn
+\hypertarget{i.-introduction}{%
+\section{I. Introduction}\label{i.-introduction}}
 
 \hypertarget{results}{%
-\section{Results}\label{results}}
+\section{?. Results}\label{results}}
 
 \begin{longtable}[]{@{}cccccccccl@{}}
 \toprule
 \begin{minipage}[b]{0.02\columnwidth}\centering
-Test\strut
-\end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\centering
+\# Test\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
 \(n_\text{train}\)\strut
-\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\centering
 \(n_{\text{test}}\)\strut
-\end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\centering
-\(n_\text{trans}\)\strut
 \end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
-\(\text{prevval}\)\strut
+\(n_\text{trans}\)\strut
 \end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\centering
+\(\text{prev_val}\)\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\centering
 \(\text{maxpow}\)\strut
-\end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\centering
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\centering
 \(\text{ratio}\)\strut
-\end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\centering
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\centering
 \(e_\text{train}\)\strut
-\end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\centering
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\centering
 \(e_\text{test}\)\strut
-\end{minipage} & \begin{minipage}[b]{0.23\columnwidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
 Observations\strut
 \end{minipage}\tabularnewline
 \midrule
 \endhead
 \begin{minipage}[t]{0.02\columnwidth}\centering
 1\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-150\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-50\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-{[}0, 1{]}\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-1\strut
-\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\centering
-1\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0035\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0075\strut
-\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
-Initial conditions\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.02\columnwidth}\centering
-2\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-50\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-{[}0, 1{]}\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-1\strut
-\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\centering
-8\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0041\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0098\strut
-\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
-\(e_\text{train} \uparrow, e_\text{test} \uparrow\)\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.02\columnwidth}\centering
-3\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-50\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-{[}0, 1{]}\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-2\strut
-\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\centering
-1\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0035\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0074\strut
-\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
-\(e_\text{train} \downarrow, e_\text{test} \downarrow\)\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.02\columnwidth}\centering
-4\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-50\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-{[}0, 1{]}\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-5\strut
-\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\centering
-1\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0035\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0074\strut
-\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
-Increasing \(\text{maxpow}\) does not benefit the result\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.02\columnwidth}\centering
-5\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-50\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-{[}0, 2{]}\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-5\strut
-\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\centering
-1\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0031\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0099\strut
-\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
-\(e_\text{train}\downarrow, e_\text{test} \uparrow\)\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.02\columnwidth}\centering
+12\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
 6\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-150\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-50\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-{[}0, 2{]}\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
 5\strut
-\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\centering
-10\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0032\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0079\strut
-\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
-\(e_\text{train}\uparrow, e_\text{test} \downarrow\)\strut
+{[}0, 1{]}\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\centering
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\centering
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\centering
+0.0477\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\centering
+0.0462\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.02\columnwidth}\centering
-7\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-120\strut
+2\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-150\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-50\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-{[}0, 2{]}\strut
+\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-5\strut
-\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\centering
-10\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0038\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0029\strut
-\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
-\(e_\text{train}\uparrow, e_\text{test} \downarrow\)\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.02\columnwidth}\centering
-8\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-120\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-120\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-50\strut
-\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
-{[}0, 2{]}\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-5\strut
-\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\centering
-10\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0038\strut
-\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\centering
-0.0019\strut
-\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
-Decreasing \(n_{\text{test}}\) will decrease \(e_\text{test}\)since
-there are fewer points\strut
+\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\centering
+\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\centering
+\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\centering
+\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\centering
+\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
-\[
-\text{Table 1 - Results of the experiment with PANN algorithm}
-\] \twocolumn
-
-\includegraphics{../Figures/fig1.png}
-
-\[
-\text{Fig. 4.1 - Test No. 1}
-\]
-
-\includegraphics{../Figures/fig2.png}
-
-\[
-\text{Fig. 4.2 - Test No. 2}
-\]
-
-\includegraphics{../Figures/fig3.png}
-
-\[
-\text{Fig. 4.3 - Test No. 3}
-\]
-
-\includegraphics{../Figures/fig4.png}
-
-\[
-\text{Fig. 4.4 - Test No. 4}
-\]
-
-\includegraphics{../Figures/fig5.png}
-
-\[
-\text{Fig. 4.5 - Test No. 5}
-\]
-
-\includegraphics{../Figures/fig6.png}
-
-\[
-\text{Fig. 4.6 - Test No. 6}
-\]
-
-\includegraphics{../Figures/fig7.png}
-
-\[
-\text{Fig. 4.7 - Test No. 7}
-\]
-
-\includegraphics{../Figures/fig8.png}
-
-\[
-\text{Fig. 4.8 - Test No. 8}
-\]
-
-\hypertarget{discussion}{%
-\section{Discussion}\label{discussion}}
-
-The first attempt to set the initial conditions was already
-approximating the original data with no significant error. However;
-multiple tests were run in hope to get a better result. The following
-times the procedure was applied with several configurations and
-different parameter values. The result is that PANNs do not require an
-extensive fine tuning to get the desired results from them. There were
-some cases in the experiment that made clear which parameters are
-directly involved with a certain type of error. For example, in test 8
-was observed that decreasing the number of test points will decrease the
-test error, this is a consequence of lowering the thresholds by
-decreasing the amount of data used in the measure of error. The results
-of the training and testing of the PANN show us that, despite the
-several modifications done to reduce the error in both scenarios, the
-graphs present a slight displacement in time, speculatively attributed
-to the implementation of the algorithm. Nevertheless; it is clear from
-the plots and the error from both test and train, that despite this
-fact, the PANN is capable to make a forecast of the test values with a
-polynomial data fitting, and giving a correct approximation to the
-original data.
-
 \hypertarget{conclusion}{%
-\section{Conclusion}\label{conclusion}}
+\section{?. Conclusion}\label{conclusion}}
 
-PANNs can show us a great behavior with several problems of data
-forecasting, data fitting, pattern recognition, and general function
-approximations. With these networks, it is possible to create nonlinear
-interconnections between multiple inner layers, and the algorithm mostly
-handles the correct values for the optimal configuration. The result is
-a much more accurate representation of the problem, with fewer
-adjustments to do before settling on usable conditions.
+The conclusion goes here.
+
+\newpage
 
 \hypertarget{references}{%
-\section*{References}\label{references}}
-\addcontentsline{toc}{section}{References}
-
-\hypertarget{refs}{}
-\begin{cslreferences}
-\leavevmode\hypertarget{ref-gomez-ramirezAdaptiveArchitecturePolynomial1999}{}%
-Gomez-Ramirez, E., Poznyak, A., Gonzalez-Yunes, A., \& Avila-Alvarez, M.
-(1999). Adaptive architecture of polynomial artificial neural network to
-forecast nonlinear time series. \emph{Proceedings of the 1999 Congress
-on Evolutionary Computation-CEC99 (Cat. No. 99TH8406)}, 317--324.
-\url{https://doi.org/10.1109/CEC.1999.781942}
-
-\leavevmode\hypertarget{ref-gomez-ramirezRedNeuronalArtificial2005}{}%
-G\a'omez-Ramírez, E. (2005). \emph{Red Neuronal Artificial Polinomial}.
-
-\leavevmode\hypertarget{ref-GroupMethodData2020}{}%
-Group method of data handling. (2020). \emph{Wikipedia}.
-
-\leavevmode\hypertarget{ref-ivakhnenkoPolynomialTheoryComplex1971}{}%
-Ivakhnenko, A. G. (1971). Polynomial Theory of Complex Systems.
-\emph{IEEE Transactions on Systems, Man, and Cybernetics},
-\emph{SMC-1}(4), 364--378.
-\url{https://doi.org/10.1109/TSMC.1971.4308320}
-
-\leavevmode\hypertarget{ref-UCIMachineLearning}{}%
-\emph{UCI Machine Learning Repository: Ozone Level Detection Data Set}.
-(n.d.). https://archive.ics.uci.edu/ml/datasets/Ozone+Level+Detection.
-
-\leavevmode\hypertarget{ref-zjavkaDifferentialPolynomialNeural2011}{}%
-Zjavka, L. (2011). Differential Polynomial Neural Network. \emph{Journal
-of Artificial Intelligence}, \emph{4}(1), 89--99.
-\url{https://doi.org/10.3923/jai.2011.89.99}
-\end{cslreferences}
+\section{References}\label{references}}
 
 \end{document}
 
